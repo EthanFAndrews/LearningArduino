@@ -1,11 +1,13 @@
 #include "PushButton.h"
 
-PushButton::PushButton(byte pin, bool isPullUp,
-                       bool internalPullUpActivated)
+PushButton::PushButton(byte pin, bool isPullUp, bool internalPullUpActivated)
 {
   this-> pin = pin;
   this->isPullUp = isPullUp;
   this->internalPullUpActivated = internalPullUpActivated;
+
+  lastTimeStateChanged = millis();
+  debounceDelay = 50;
 }
 
 void PushButton::init()
@@ -19,10 +21,11 @@ void PushButton::init()
   readState();
 }
 
-byte PushButton::readState()
+void PushButton::readState()
 {
+  unsigned long timeNow = millis();
+  
   state = digitalRead(pin);
-  return state;
 }
 
 bool PushButton::isPressed()
