@@ -21,3 +21,5 @@ class PushButton
 
     bool isPressed();
 }
+
+#endif
