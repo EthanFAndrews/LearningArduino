@@ -2,7 +2,8 @@
 
 #define BUTTON_PIN 2
 
-PushButton button(BUTTON_PIN, true, true);
+
+PushButton button(BUTTON_PIN);
 
 void setup() {
   Serial.begin(115200);
@@ -10,11 +11,7 @@ void setup() {
 }
 
 void loop() {
-  if (button.isPressed()) {
-    Serial.println("Button is pressed");
-  }
-  else {
-    Serial.println("Button is not pressed")
-  }
+  Serial.println(button.readState());
   delay(100);
+
 }

@@ -1,41 +1,18 @@
 #include "PushButton.h"
 
-PushButton::PushButton(byte pin, bool isPullUp, bool internalPullUpActivated)
+PushButton::PushButton(byte pin)
 {
-  this-> pin = pin;
-  this->isPullUp = isPullUp;
-  this->internalPullUpActivated = internalPullUpActivated;
-
-  lastTimeStateChanged = millis();
-  debounceDelay = 50;
+  this->pin = pin;
 }
 
 void PushButton::init()
 {
-  if (isPullUp && internalPullUpActivated) {
-    pinMode(pin, INPUT_PULLUP);
-  }
-  else {
-    pinMode(pin, INPUT);
-  }
+  pinMode(pin, INPUT_PULLUP);
   readState();
 }
 
-void PushButton::readState()
+byte PushButton::readState()
 {
-  unsigned long timeNow = millis();
-  
   state = digitalRead(pin);
+  return state;
 }
-
-bool PushButton::isPressed()
-{
-  readState();
-  if (isPullUp) {
-    return (state == LOW);
-  }
-  else {
-    return (state == HIGH);
-  }
-}
-
